@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration and Login</title>
+</head>
+<body>
+
+<div id="register">
+    <h2>Student Registration</h2>
+
+    Name: <input type="text" id="name"><br><br>
+    Email: <input type="email" id="email"><br><br>
+    Password: <input type="password" id="password"><br><br>
+    Confirm Password: <input type="password" id="confirm"><br><br>
+
+    <button onclick="signup()">Register</button>
+</div>
+
+<div id="login" style="display:none;">
+    <h2>Student Login</h2>
+
+    Email: <input type="email" id="lemail"><br><br>
+    Password: <input type="password" id="lpassword"><br><br>
+
+    <button onclick="login()">Login</button>
+</div>
+
+<p id="msg"></p>
+
+<script>
+function signup() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let confirm = document.getElementById("confirm").value;
+
+    if (name == "" || email == "" || password == "") {
+        document.getElementById("msg").innerHTML =
+            "Please fill all fields";
+    } else if (password != confirm) {
+        document.getElementById("msg").innerHTML =
+            "Passwords do not match";
+    } else {
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+
+        document.getElementById("register").style.display = "none";
+        document.getElementById("login").style.display = "block";
+        document.getElementById("msg").innerHTML =
+            "Registration successful";
+    }
+}
+
+function login() {
+    let email = document.getElementById("lemail").value;
+    let password = document.getElementById("lpassword").value;
+
+    if (email == localStorage.getItem("email") &&
+        password == localStorage.getItem("password")) {
+        document.getElementById("msg").innerHTML =
+            "Login successful";
+    } else {
+        document.getElementById("msg").innerHTML =
+            "Invalid email or password";
+    }
+}
+</script>
+
+</body>
+</html>
